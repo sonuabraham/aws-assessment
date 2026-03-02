@@ -1,0 +1,11 @@
+# Example Terraform Variables File
+# Copy this file to terraform.tfvars and update with your values
+
+# Email address for Cognito test user and SNS notifications
+user_email = "sonuabraham2001@gmail.com"
+
+# GitHub repository URL for verification payload
+github_repo = "https://github.com/sonuabraham/aws-assessment"
+
+# External SNS topic ARN for candidate verification
+sns_topic_arn = "arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic"
