@@ -59,4 +59,17 @@ resource "aws_route_table_association" "public" {
   route_table_id = aws_route_table.public.id
 }
 
-# ECS resources
+# ECS Cluster
+resource "aws_ecs_cluster" "main" {
+  name = "cluster-${var.region}"
+
+  setting {
+    name  = "containerInsights"
+    value = "disabled"
+  }
+
+  tags = {
+    Name   = "cluster-${var.region}"
+    Region = var.region
+  }
+}
