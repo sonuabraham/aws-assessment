@@ -10,8 +10,7 @@ user_password = "YourSecurePassword123!"
 # GitHub repository URL for verification payload
 github_repo = "https://github.com/sonuabraham/aws-assessment"
 
-# External SNS topic ARN for Lambda verification
-sns_topic_arn_lambda = "arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic1"
+# Whether to subscribe email to test SNS topics (requires email confirmation)
+# Set to true if you want to receive test notifications
+subscribe_to_sns = false
 
-# External SNS topic ARN for ECS verification
-sns_topic_arn_ecs = "arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic1"

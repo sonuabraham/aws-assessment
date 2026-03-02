@@ -18,14 +18,9 @@ variable "github_repo" {
   default     = "https://github.com/sonuabraham/aws-assessment"
 }
 
-variable "sns_topic_arn_lambda" {
-  description = "External SNS topic ARN for Lambda verification"
-  type        = string
-  default     = "arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic1"
+variable "subscribe_to_sns" {
+  description = "Whether to subscribe email to test SNS topics (requires email confirmation)"
+  type        = bool
+  default     = false
 }
 
-variable "sns_topic_arn_ecs" {
-  description = "External SNS topic ARN for ECS verification"
-  type        = string
-  default     = "arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic1"
-}

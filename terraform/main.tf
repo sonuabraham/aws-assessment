@@ -25,6 +25,17 @@ provider "aws" {
   alias  = "eu_west_1"
 }
 
+# SNS Topics for testing (us-east-1 only)
+module "sns" {
+  source = "./modules/sns"
+  providers = {
+    aws = aws.us_east_1
+  }
+
+  notification_email = var.user_email
+  subscribe_email    = var.subscribe_to_sns
+}
+
 # Cognito module (us-east-1 only)
 module "cognito" {
   source = "./modules/cognito"
@@ -47,8 +58,8 @@ module "regional_stack_us" {
   cognito_user_pool_arn       = module.cognito.user_pool_arn
   cognito_user_pool_id        = module.cognito.user_pool_id
   cognito_user_pool_client_id = module.cognito.user_pool_client_id
-  sns_topic_arn_lambda        = var.sns_topic_arn_lambda
-  sns_topic_arn_ecs           = var.sns_topic_arn_ecs
+  sns_topic_arn_lambda        = module.sns.lambda_topic_arn
+  sns_topic_arn_ecs           = module.sns.ecs_topic_arn
   user_email                  = var.user_email
   github_repo                 = var.github_repo
 }
@@ -64,8 +75,8 @@ module "regional_stack_eu" {
   cognito_user_pool_arn       = module.cognito.user_pool_arn
   cognito_user_pool_id        = module.cognito.user_pool_id
   cognito_user_pool_client_id = module.cognito.user_pool_client_id
-  sns_topic_arn_lambda        = var.sns_topic_arn_lambda
-  sns_topic_arn_ecs           = var.sns_topic_arn_ecs
+  sns_topic_arn_lambda        = module.sns.lambda_topic_arn
+  sns_topic_arn_ecs           = module.sns.ecs_topic_arn
   user_email                  = var.user_email
   github_repo                 = var.github_repo
 }
