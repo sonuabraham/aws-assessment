@@ -73,3 +73,88 @@ resource "aws_ecs_cluster" "main" {
     Region = var.region
   }
 }
+
+# Security Group for ECS Tasks
+resource "aws_security_group" "ecs_tasks" {
+  name        = "ecs-tasks-sg-${var.region}"
+  description = "Security group for ECS Fargate tasks"
+  vpc_id      = aws_vpc.main.id
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow all outbound traffic"
+  }
+
+  tags = {
+    Name   = "ecs-tasks-sg-${var.region}"
+    Region = var.region
+  }
+}
+
+# CloudWatch Log Group for ECS Tasks
+resource "aws_cloudwatch_log_group" "ecs_tasks" {
+  name              = "/ecs/tasks-${var.region}"
+  retention_in_days = 7
+
+  tags = {
+    Name   = "ecs-tasks-logs-${var.region}"
+    Region = var.region
+  }
+}
+
+# ECS Task Definition
+resource "aws_ecs_task_definition" "main" {
+  family                   = "task-${var.region}"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = "256"
+  memory                   = "512"
+  execution_role_arn       = aws_iam_role.ecs_task_execution.arn
+  task_role_arn            = aws_iam_role.ecs_task.arn
+
+  container_definitions = jsonencode([
+    {
+      name  = "aws-cli"
+      image = "amazon/aws-cli:latest"
+      command = [
+        "sh",
+        "-c",
+        "aws sns publish --topic-arn $SNS_TOPIC_ARN --message \"{\\\"email\\\":\\\"$USER_EMAIL\\\",\\\"source\\\":\\\"ECS\\\",\\\"region\\\":\\\"$AWS_REGION\\\",\\\"repo\\\":\\\"$GITHUB_REPO\\\"}\" --region us-east-1"
+      ]
+      environment = [
+        {
+          name  = "SNS_TOPIC_ARN"
+          value = var.sns_topic_arn_ecs
+        },
+        {
+          name  = "USER_EMAIL"
+          value = var.user_email
+        },
+        {
+          name  = "GITHUB_REPO"
+          value = var.github_repo
+        },
+        {
+          name  = "AWS_REGION"
+          value = var.region
+        }
+      ]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          "awslogs-group"         = aws_cloudwatch_log_group.ecs_tasks.name
+          "awslogs-region"        = var.region
+          "awslogs-stream-prefix" = "ecs"
+        }
+      }
+    }
+  ])
+
+  tags = {
+    Name   = "task-${var.region}"
+    Region = var.region
+  }
+}
