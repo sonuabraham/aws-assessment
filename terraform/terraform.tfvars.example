@@ -4,8 +4,14 @@
 # Email address for Cognito test user and SNS notifications
 user_email = "sonuabraham2001@gmail.com"
 
+# Password for Cognito test user (must meet password policy: 8+ chars, uppercase, lowercase, numbers, symbols)
+user_password = "YourSecurePassword123!"
+
 # GitHub repository URL for verification payload
 github_repo = "https://github.com/sonuabraham/aws-assessment"
 
-# External SNS topic ARN for candidate verification
-sns_topic_arn = "arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic"
+# External SNS topic ARN for Lambda verification
+sns_topic_arn_lambda = "arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic1"
+
+# External SNS topic ARN for ECS verification
+sns_topic_arn_ecs = "arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic1"

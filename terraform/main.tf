@@ -32,7 +32,8 @@ module "cognito" {
     aws = aws.us_east_1
   }
 
-  user_email = var.user_email
+  user_email    = var.user_email
+  user_password = var.user_password
 }
 
 # Regional stack for us-east-1
@@ -44,7 +45,8 @@ module "regional_stack_us" {
 
   region                = "us-east-1"
   cognito_user_pool_arn = module.cognito.user_pool_arn
-  sns_topic_arn         = var.sns_topic_arn
+  sns_topic_arn_lambda  = var.sns_topic_arn_lambda
+  sns_topic_arn_ecs     = var.sns_topic_arn_ecs
   user_email            = var.user_email
   github_repo           = var.github_repo
 }
@@ -58,7 +60,8 @@ module "regional_stack_eu" {
 
   region                = "eu-west-1"
   cognito_user_pool_arn = module.cognito.user_pool_arn
-  sns_topic_arn         = var.sns_topic_arn
+  sns_topic_arn_lambda  = var.sns_topic_arn_lambda
+  sns_topic_arn_ecs     = var.sns_topic_arn_ecs
   user_email            = var.user_email
   github_repo           = var.github_repo
 }
