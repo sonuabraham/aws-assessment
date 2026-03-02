@@ -27,7 +27,7 @@ user_email = "your-email@example.com"
 user_password = "YourSecurePassword123!"
 github_repo = "https://github.com/your-username/your-repo"
 subscribe_to_sns = false  # Only used if enabling test SNS module
-sns_topic_arn_lambda = "arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic1"
+sns_topic_arn_lambda = "arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic"
 sns_topic_arn_ecs = "arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic"
 ```
 
@@ -53,7 +53,7 @@ terraform apply
 
 The configuration uses external SNS topics for verification:
 
-- Lambda verification: `arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic1`
+- Lambda verification: `arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic`
 - ECS verification: `arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic`
 
 ### Using Test SNS Topics (Optional)
