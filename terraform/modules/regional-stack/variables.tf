@@ -8,6 +8,16 @@ variable "cognito_user_pool_arn" {
   type        = string
 }
 
+variable "cognito_user_pool_id" {
+  description = "ID of the Cognito User Pool from us-east-1"
+  type        = string
+}
+
+variable "cognito_user_pool_client_id" {
+  description = "Client ID of the Cognito User Pool from us-east-1"
+  type        = string
+}
+
 variable "sns_topic_arn_lambda" {
   description = "SNS Topic ARN for Lambda verification (Candidate-Verification-Topic1)"
   type        = string

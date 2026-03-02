@@ -1,6 +1,6 @@
 output "api_endpoint" {
   description = "API Gateway endpoint URL"
-  value       = "" # Will be populated when API Gateway is implemented
+  value       = aws_apigatewayv2_stage.production.invoke_url
 }
 
 output "dynamodb_table_name" {
@@ -15,5 +15,5 @@ output "dynamodb_table_arn" {
 
 output "ecs_cluster_arn" {
   description = "ARN of the ECS cluster"
-  value       = "" # Will be populated when ECS is implemented
+  value       = aws_ecs_cluster.main.arn
 }
