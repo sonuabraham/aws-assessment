@@ -27,7 +27,7 @@ variable "subscribe_to_sns" {
 variable "sns_topic_arn_lambda" {
   description = "External SNS topic ARN for Lambda verification"
   type        = string
-  default     = "arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic1"
+  default     = "arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic"
 }
 
 variable "sns_topic_arn_ecs" {
