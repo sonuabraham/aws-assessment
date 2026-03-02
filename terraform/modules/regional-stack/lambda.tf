@@ -1,1 +1,1 @@
-# Lambda Function Resources
+# Lambda function resources

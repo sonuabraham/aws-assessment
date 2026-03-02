@@ -1,1 +1,1 @@
-# DynamoDB Table Resources
+# DynamoDB table resources

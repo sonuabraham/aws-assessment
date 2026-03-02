@@ -1,1 +1,1 @@
-# API Gateway Resources
+# API Gateway resources
