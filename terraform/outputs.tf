@@ -22,17 +22,6 @@ output "cognito_user_pool_endpoint" {
   value       = module.cognito.user_pool_endpoint
 }
 
-# SNS Topic Outputs
-output "sns_lambda_topic_arn" {
-  description = "ARN of the test Lambda verification SNS topic"
-  value       = module.sns.lambda_topic_arn
-}
-
-output "sns_ecs_topic_arn" {
-  description = "ARN of the test ECS verification SNS topic"
-  value       = module.sns.ecs_topic_arn
-}
-
 # US-East-1 Regional Outputs
 output "api_endpoint_us_east_1" {
   description = "API Gateway endpoint URL for us-east-1"

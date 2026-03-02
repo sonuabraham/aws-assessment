@@ -26,7 +26,9 @@ cp terraform.tfvars.example terraform.tfvars
 user_email = "your-email@example.com"
 user_password = "YourSecurePassword123!"
 github_repo = "https://github.com/your-username/your-repo"
-subscribe_to_sns = false  # Set to true to receive test notifications
+subscribe_to_sns = false  # Only used if enabling test SNS module
+sns_topic_arn_lambda = "arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic1"
+sns_topic_arn_ecs = "arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic"
 ```
 
 3. Initialize Terraform:
@@ -49,21 +51,18 @@ terraform apply
 
 ## SNS Topics
 
-The configuration creates test SNS topics in us-east-1:
+The configuration uses external SNS topics for verification:
 
-- `test-lambda-verification-topic` - For Lambda function verification
-- `test-ecs-verification-topic` - For ECS task verification
+- Lambda verification: `arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic1`
+- ECS verification: `arn:aws:sns:us-east-1:637226132752:Candidate-Verification-Topic`
 
-### Email Subscriptions (Optional)
+### Using Test SNS Topics (Optional)
 
-If you set `subscribe_to_sns = true`, you'll receive a confirmation email for each SNS topic. You must confirm these subscriptions to receive notifications.
+If you want to create your own test SNS topics instead of using external ones:
 
-### Using Production SNS Topics
-
-When you're ready to use the actual production SNS topics, you can modify the configuration:
-
-1. Update `terraform/main.tf` to use external SNS topic ARNs instead of the module
-2. Or modify the SNS module to use data sources to reference existing topics
+1. Uncomment the SNS module in `main.tf`
+2. Update the regional stack modules to use `module.sns.lambda_topic_arn` and `module.sns.ecs_topic_arn`
+3. Set `subscribe_to_sns = true` in terraform.tfvars to receive email notifications (requires confirmation)
 
 ## Outputs
 
